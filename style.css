@@ -1,0 +1,12 @@
+#ObjField{
+    position: relative;
+}
+
+.block {
+    display:inline-block;
+    position:absolute;
+    border:solid 0px blue;
+    border-radius:5px;
+    background:navy;
+    
+}

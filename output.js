@@ -27,8 +27,21 @@
 			this.board_div.addEventListener("click", function(e){
 				let clicked_block=e.target.connectedBlock;
 				if(clicked_block){  
-					if(field.can_click(clicked_block))
+					if(field.can_click(clicked_block)){
 						field.click(clicked_block);
+							
+						let p=document.createElement("p");
+						if(clicked_block.direction=="down")
+							p.innerHTML="g";
+						if(clicked_block.direction=="up")
+							p.innerHTML="c";
+						if(clicked_block.direction=="right")
+							p.innerHTML="e";
+						if(clicked_block.direction=="left")
+							p.innerHTML="a";
+			
+						e.target.appendChild(p);
+					}
 					   
 
 				}
@@ -64,14 +77,19 @@
 			// Преобразуем действия на поле в шаги анимации
 			while(this.field.actions.length>0){
 				action=this.field.actions.shift();
-				if(action.isnew==0 || action.isdel==0){
+				//console.log(action.block.direction+' - '+action.start_val+' -> '+action.end_val+' ('+action.isnew+action.isdel+action.isreverce+')');
+				if(action.isnew==0 && action.isdel==0){
 					// Moving
 					let block=action.block;
-					let dir=block.direction;
-					if(dir=="down"){
+					//let dir=block.direction;
+					let dir=action.direction;
+					if(action.isreverce)
+						block.html_div.innerHTML="";		
+					if(dir=="down" || (dir=="up" && action.isreverce)){
 						// TOP
 						let R0=action.start_val*this.block_size;	 
 						let R1=action.end_val*this.block_size;	 
+						//console.log(action.start_val+' -> '+action.end_val+' ('+dir+')');
 						while(R0<R1){
 							R0+=10;
 							R0=(R0>=R1)?R1:R0;
@@ -79,7 +97,7 @@
 							this.animations.push(animation);	
 						}
 					}
-					if(dir=="up"){
+					if(dir=="up" || (dir=="down" && action.isreverce)){
 						// TOP
 						let R0=action.start_val*this.block_size;	 
 						let R1=action.end_val*this.block_size;	 
@@ -90,7 +108,7 @@
 							this.animations.push(animation);	
 						}
 					}
-					if(dir=="right"){
+					if(dir=="right" || (dir=="left" && action.isreverce)){
 						// TOP
 						let R0=action.start_val*this.block_size;	 
 						let R1=action.end_val*this.block_size;	 
@@ -101,7 +119,7 @@
 							this.animations.push(animation);	
 						}
 					}
-					if(dir=="left"){
+					if(dir=="left" || (dir=="right" && action.isreverce)){
 						// TOP
 						let R0=action.start_val*this.block_size;	 
 						let R1=action.end_val*this.block_size;	 
@@ -125,6 +143,11 @@
 					animation=new Animation(block, "display");
 					this.animations.push(animation);	
 				}
+				if(action.isdel==1){
+					let block=action.block;
+					animation=new Animation(block, "remove");
+					this.animations.push(animation);	
+				}
 			}
 
 			// Смотрим шаги анимации и выполняем несколько или все
@@ -140,10 +163,17 @@
 				if(animation.property=="display"){
 					animation.block.html_div.style.display="block";
 				}
+				if(animation.property=="remove"){
+					animation.block.html_div.remove();
+				}
 				times++;
 			}
 
 			window.setTimeout("g.output.DoAnimations()",(this.animations.length>0 ? 10 : 100));
+
+			if(this.animations.length==0 && this.field.is_clear()){
+				g.nextLevel();
+			}
 
 		}
 		

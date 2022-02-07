@@ -1,0 +1,1 @@
+Game for learning JS

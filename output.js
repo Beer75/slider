@@ -1,4 +1,6 @@
-	/** For output field, animation and so on */
+	/** 
+	 * For output field, animation and so on 
+	 * */
 	class Output {
 		board_div;
 		field;

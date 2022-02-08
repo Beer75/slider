@@ -1,4 +1,6 @@
-
+/**
+ *  Class description game Field. Make game logic
+ */
 	class Field {
 		colors=["navy","blue","rgb(64,128,128)","rgb(0,128,255)","rgb(128,0,64)","rgb(255,128,0)","rgb(255,128,255)","darkgreen","rgb(255,0,0)"];
 		fcolors=["rgb(2,2,234)","rgb(3,3,183)","rgb(48,100,100)","rgb(0,93,185)","rgb(75,0,40)","rgb(165,80,0)","rgb(170,90,170)","rgb(1,70,1)","rgb(150,0,0)"];

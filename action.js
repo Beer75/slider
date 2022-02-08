@@ -1,3 +1,7 @@
+/**
+ *  Class for queue of action of games. Moving block, new block, delete blockю
+ * 
+ */
 class Action{
     block;
     start_val;

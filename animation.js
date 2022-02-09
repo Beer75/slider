@@ -1,3 +1,6 @@
+/**
+ * Class for animation queue. Get from Action queue and use in Output class
+ */
 class Animation{
     block;
     property;

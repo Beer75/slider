@@ -1,4 +1,6 @@
-
+/**
+ *  Class description of block on field
+ */
 	class Block {
 		color;
 		fcolor;

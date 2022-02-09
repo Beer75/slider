@@ -1,3 +1,6 @@
+/**
+ * Manage game.
+ */
 class Game {
 	level=1;
    	colors;

@@ -1,6 +1,7 @@
 	/** 
 	 * For output field, animation and so on 
 	 * */
+
 	class Output {
 		board_div;
 		field;
@@ -9,7 +10,14 @@
 
 		constructor(field){	
 			this.field=field;
+			let FC=document.getElementById('objField_conteiner');
+			FC.innerHTML="";
+			let OF=document.createElement("div");
+			OF.id="ObjField";
+			FC.appendChild(OF);
+			
 			this.board_div=document.getElementById("ObjField");
+			this.board_div.innerHTML="";
 
 			// foreach in field.blocks
 			for(let r=0;r<field.field_size;r++){
@@ -25,7 +33,7 @@
 
 				}
 			}
-
+			
 			this.board_div.addEventListener("click", function(e){
 				let clicked_block=e.target.connectedBlock;
 				if(clicked_block){  
@@ -67,7 +75,7 @@
 				}
 
 			});
-
+			
 			window.setTimeout("g.output.DoAnimations()",100);
 
 		}
@@ -79,7 +87,6 @@
 			// Преобразуем действия на поле в шаги анимации
 			while(this.field.actions.length>0){
 				action=this.field.actions.shift();
-				//console.log(action.block.direction+' - '+action.start_val+' -> '+action.end_val+' ('+action.isnew+action.isdel+action.isreverce+')');
 				if(action.isnew==0 && action.isdel==0){
 					// Moving
 					let block=action.block;
@@ -91,7 +98,6 @@
 						// TOP
 						let R0=action.start_val*this.block_size;	 
 						let R1=action.end_val*this.block_size;	 
-						//console.log(action.start_val+' -> '+action.end_val+' ('+dir+')');
 						while(R0<R1){
 							R0+=10;
 							R0=(R0>=R1)?R1:R0;
@@ -154,7 +160,7 @@
 
 			// Смотрим шаги анимации и выполняем несколько или все
 			let times=0;
-			if(this.animations.length>0 && times<5){
+			if(this.animations.length>0){
 				animation=this.animations.shift();
 				if(animation.property=="top" || animation.property=="left"){
 					if(animation.block.direction=="down" || animation.block.direction=="up")
@@ -171,7 +177,9 @@
 				times++;
 			}
 
-			window.setTimeout("g.output.DoAnimations()",(this.animations.length>0 ? 10 : 100));
+			document.getElementById("score_span_id").innerHTML=g.currentScore();
+			document.getElementById("level_span_id").innerHTML=g.currentLevel();
+			window.setTimeout("g.output.DoAnimations()",(this.animations.length>0 ? 5 : 100));
 
 			if(this.animations.length==0 && this.field.is_clear()){
 				g.nextLevel();

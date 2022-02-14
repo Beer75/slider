@@ -20,5 +20,17 @@
 }
 
 body{
-    font-family:"PizzaDude Pointers"
+    font-family:"PizzaDude Pointers";
+    display: flex;
+}
+
+.text{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    width: 100px;
+}
+
+.big{
+    font-size: larger;
+    color: crimson;
 }

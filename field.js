@@ -2,8 +2,8 @@
  *  Class description game Field. Make game logic
  */
 	class Field {
-		colors=["navy","blue","rgb(64,128,128)","rgb(0,128,255)","rgb(128,0,64)","rgb(255,128,0)","rgb(255,128,255)","darkgreen","rgb(255,0,0)"];
-		fcolors=["rgb(2,2,234)","rgb(3,3,183)","rgb(48,100,100)","rgb(0,93,185)","rgb(75,0,40)","rgb(165,80,0)","rgb(170,90,170)","rgb(1,70,1)","rgb(150,0,0)"];
+		colors=["navy","blue","rgb(64,128,128)","rgb(0,128,255)","rgb(128,0,64)","rgb(255,128,0)","rgb(255,128,255)","darkgreen","rgb(255,0,0)","rgb(255,64,0)"];
+		fcolors=["rgb(2,2,234)","rgb(3,3,183)","rgb(48,100,100)","rgb(0,93,185)","rgb(75,0,40)","rgb(165,80,0)","rgb(170,90,170)","rgb(1,70,1)","rgb(150,0,0)","rgb(150,32,0)"];
 			
 		field_size=16;
    	constructor(color_count, level){
@@ -13,7 +13,8 @@
 
 			this.colored=[];
 			this.deleting=[];
-			
+			this.summary_score=0;
+
    		// Create blocks
 			for(let r=0;r<this.field_size;r++){
 			   this.blocks[r]=[];
@@ -274,7 +275,7 @@
 							action=new Action(this.blocks[r+1][c], r, r+1);
 							this.actions.push(action);
 							was_moved=1;
-							//console.log(r+' -> +1 '+this.actions.length+' els '+this.blocks[r+1][c]);
+							
 						}
 						if(DIR=="down" && r==12){
 							action=new Action(this.blocks[15][c]);
@@ -304,7 +305,7 @@
 							this.blocks[12][c]=0;
 
 							was_moved=1;
-							//console.log(r+' -> +1 reverce '+this.actions.length+' els '+this.blocks[13][c]);
+							
 						}
 						if(DIR=="up" && this.blocks[r-1][c]==0 && r!=13){
 							this.blocks[r-1][c]=this.blocks[r][c];
@@ -380,6 +381,7 @@
 				this.deleting.forEach(delblock => {
 					action=new Action(delblock);
 					action.isdel=1;
+					this.summary_score++;
 					this.actions.push(action);	
 					//delblock.html_div=null;
 					this.blocks[delblock.row][delblock.col]=0;	

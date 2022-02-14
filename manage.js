@@ -1,21 +1,25 @@
 /**
  * Manage game.
  */
-class Game {
-	level=1;
-   	colors;
-
-	constructor(color_count){	
-		this.level=1;
-		this.colors=color_count;
-		this.field=new Field(color_count,this.level);
-		this.output=new Output(this.field);
+class Manager {
+	constructor(color_count){
+		this.game=new Game(color_count);	
+		this.output=new Output(this.game.field);
+		
 	}
 
 	nextLevel(){
-		this.level++;
-		this.field=new Field(this.colors,this.level);
-		this.output=new Output(this.field);
-
+		this.game.nextLevel();
+		this.output=new Output(this.game.field);
+		
 	}
+
+	currentScore(){
+		return this.game.score;
+	}
+
+	currentLevel(){
+		return this.game.level;
+	}
+	
 }

@@ -20,9 +20,6 @@
 			this.html_div.style.color=this.fcolor;
 			this.html_div.connectedBlock=this;
 
-			
-			
-
 		}
 		
 		get direction(){

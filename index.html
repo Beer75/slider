@@ -4,24 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css?" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     
     <title>slider</title>
 </head>
 <body>
+    <div id="objField_conteiner">
     <div id="ObjField"></div>
+    </div>
+    <div>
+        <div id="level_span_id" class="text big">1</div> 
+        <div class="text">level</div>
+        <div id="score_span_id" class="text big">0</div> 
+        <div class="text">points</div>
+        <div><input type="text" id="hard_text_id" size="1" value="4"><input type="button" value="New hard" onclick="newHard();"></div>
+    </div>
 
     <script src="block.js"></script>
     <script src="action.js"></script>
     <script src="animation.js"></script>
     <script src="field.js"></script>
+    <script src="game.js"></script>
     <script src="output.js"></script>
     <script src="manage.js"></script>
     
-
     <script>
-        var g=new Game(4);
-        
+        var g=new Manager(4);
+        function newHard(){
+            let h=Number(document.getElementById("hard_text_id").value);
+            
+            if(isNaN(h)){
+                alert('Введите числовое значение от 1-9');
+                return;
+            }
+            if(h<1 || h>9){
+                alert('Введите числовое значение от 1-9');
+                return;
+            }
+            g=new Manager(h);
+
+        }
     </script>    
 </body>
 </html>
